@@ -35,9 +35,9 @@ function Rotating_Model(omega1, omega2, omega3, L1, L2, L3)
        
        rotAxis = [L1(i) L2(i) L3(i)];
        rotAxisW = toWorld(rotAxis, p1);
-       disp(getYAxis(p1) + getXAxis(p1));
-       disp(toWorld([1 1 0], p1));
-       if mod(i, 100) == 0
+       %disp(getZAxis(p1) + getXAxis(p1));
+       %disp(toWorld([1 0 1], p1));
+       if mod(i, 1) == 0
            patch('faces', [1,2], 'vertices', [0 0 0; rotAxisW(1) rotAxisW(2) rotAxisW(3)], 'edgecolor', 'b');
        end
        

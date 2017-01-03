@@ -34,10 +34,11 @@ function Rotating_Model(omega1, omega2, omega3, L1, L2, L3)
        finalTime = datenum(clock + [0, 0, 0, 0, 0, 0.001]); 
        
        rotAxis = [L1(i) L2(i) L3(i)];
-       rotAxis = toWorld(rotAxis, p1);
-       %disp(toWorld([2 0 0], p1));
+       rotAxisW = toWorld(rotAxis, p1);
+       disp(getZAxis(p1) + getXAxis(p1));
+       disp(toWorld([1 0 1], p1));
        if mod(i, 100) == 0
-           patch('faces', [1,2], 'vertices', [0 0 0; rotAxis(1) rotAxis(2) rotAxis(3)], 'edgecolor', 'b');
+           %patch('faces', [1,2], 'vertices', [0 0 0; rotAxisW(1) rotAxisW(2) rotAxisW(3)], 'edgecolor', 'b');
        end
        
        v1 = omega1(i)*0.01 * getXAxis(p1);
@@ -61,7 +62,7 @@ end
 
 function [pos] = getXAxis(p1)
     a = p1.Vertices(8,:);
-    b = p1.Vertices(,:);
+    b = p1.Vertices(5,:);
     pos = (b - a) / 8;
 end
 
