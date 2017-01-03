@@ -137,21 +137,21 @@ function Rotating_Model(omega1, omega2, omega3, L1, L2, L3)
     end
 end
 
-% Return vector in the direction of the body's x axis.
+% Return a unit vector in the direction of the body's x axis.
 function [pos] = getXAxis(p1)
     a = p1.Vertices(5,:);
     b = p1.Vertices(8,:);
     pos = (b - a) / 8;
 end
 
-% Return vector in the direction of the body's y axis.
+% Return a unit vector in the direction of the body's y axis.
 function [pos] = getYAxis(p1)
     a = p1.Vertices(1,:);
     b = p1.Vertices(2,:);
     pos = (b - a) / 4;
 end
 
-% Return vector in the direction of the body's z axis.
+% Return a unit vector in the direction of the body's z axis.
 function [pos] = getZAxis(p1)
     a = p1.Vertices(5,:);
     b = p1.Vertices(1,:);
