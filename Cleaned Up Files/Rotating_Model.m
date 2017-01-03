@@ -1,3 +1,14 @@
+%  ----------------------- READ ME -----------------------
+% To use this program, 
+    % 1.  Navigate to the 'Master_Files' folder
+    % 2.  Run the script named 'EulerSolverVariables_Master_20161229.m
+    % 3.  Open the Simulink file named 'EulerSolver_Master_20170103.slx'
+    % 4.  Run that Simulink file to generate the omega values
+    % 5.  Navigate back to this script
+    % 6.  Now, in the Command Window, enter the command:
+    %     'Rotating_Model(w3.Data, w2.Data, w1.Data, L3.Data, L2.Data, L1.Data)'
+
+
 function Rotating_Model(omega1, omega2, omega3, L1, L2, L3)
     %shape vertices
     a = [-4 -2 -2;
@@ -54,55 +65,11 @@ function Rotating_Model(omega1, omega2, omega3, L1, L2, L3)
        
        % Begin coloring transitions.
        if mod(i, 1) == 0
-           if state == 0
-              r = r + 0.01;
-              if r >= 1
-                  r = 1;
-                  state = state + 1;
-              end
-           end
-           if state == 1
-              g = g + 0.01;
-              if g >= 1
-                  g = 1;
-                  state = state + 1;
-              end
-           end
-           if state == 2
-              r = r - 0.01;
-              if r <= 0
-                  r = 0;
-                  state = state + 1;
-              end
-           end
-           if state == 3
-              b = b + 0.01;
-              if b >= 1
-                  b = 1;
-                  state = state + 1;
-              end
-           end
-           if state == 4
-              g = g - 0.01;
-              if g <= 0
-                  g = 0;
-                  state = state + 1;
-              end
-           end
-           if state == 5
-              r = r + 0.01;
-              if r >= 1
-                  r = 1;
-                  state = state + 1;
-              end
-           end
-           if state == 6
-              b = b - 0.01;
-              if b <= 0
-                  b = 0;
-                  state = 0;
-              end
-           end
+           colorData = colorAngularMomentum(r, g, b, state);
+           r = colorData(1);
+           g = colorData(2);
+           b = colorData(3);
+           state = colorData(4);
            
            % Draw the presumed angular momentum vector.
            % WARNING: CURRENTLY INCORRECT.  (Angular momentum vector is not
@@ -176,6 +143,59 @@ function v2 = toWorld(v1, p)
     % Multiplying this matrix by a vector will perform the linear
     % transformation.
     v2 = T * transpose(v1);
+end
+
+function [res] = colorAngularMomentum(r, g, b, state)
+   if state == 0
+      r = r + 0.01;
+      if r >= 1
+          r = 1;
+          state = state + 1;
+      end
+   end
+   if state == 1
+      g = g + 0.01;
+      if g >= 1
+          g = 1;
+          state = state + 1;
+      end
+   end
+   if state == 2
+      r = r - 0.01;
+      if r <= 0
+          r = 0;
+          state = state + 1;
+      end
+   end
+   if state == 3
+      b = b + 0.01;
+      if b >= 1
+          b = 1;
+          state = state + 1;
+      end
+   end
+   if state == 4
+      g = g - 0.01;
+      if g <= 0
+          g = 0;
+          state = state + 1;
+      end
+   end
+   if state == 5
+      r = r + 0.01;
+      if r >= 1
+          r = 1;
+          state = state + 1;
+      end
+   end
+   if state == 6
+      b = b - 0.01;
+      if b <= 0
+          b = 0;
+          state = 0;
+      end
+   end
+   res = [r g b state];
 end
 
 
