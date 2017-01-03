@@ -1,7 +1,7 @@
 %  ----------------------- READ ME -----------------------
 % To use this program, 
     % 1.  Navigate to the 'Master_Files' folder
-    % 2.  Run the script named 'EulerSolverVariables_Master_20161229.m
+    % 2.  Run the script named 'EulerSolverVariables_Master_20161229.m'
     % 3.  Open the Simulink file named 'EulerSolver_Master_20170103.slx'
     % 4.  Run that Simulink file to generate the omega values
     % 5.  Navigate back to this script
