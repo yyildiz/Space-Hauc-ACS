@@ -103,7 +103,10 @@ function Rotating_Model(omega1, omega2, omega3, L1, L2, L3)
                   state = 0;
               end
            end
-           patch('faces', [1,2], 'vertices', [0 0 0; rotAxis(1) rotAxis(2) rotAxis(3)], 'edgecolor', [r g b]);
+           
+           % Draw the presumed angular momentum vector.
+           % WARNING: CURRENTLY INCORRECT.  (Angular momentum vector is
+           patch('faces', [1,2], 'vertices', [0 0 0; rotAxisW(1) rotAxisW(2) rotAxisW(3)], 'edgecolor', [r g b]);
        end
        % End coloring transitions.
        
@@ -137,37 +140,42 @@ function Rotating_Model(omega1, omega2, omega3, L1, L2, L3)
     end
 end
 
-% Return vector in the direction of the body's x axis.
+% Return a unit vector in the direction of the body's x axis.
 function [pos] = getXAxis(p1)
     a = p1.Vertices(5,:);
     b = p1.Vertices(8,:);
     pos = (b - a) / 8;
 end
 
-% Return vector in the direction of the body's y axis.
+% Return a unit vector in the direction of the body's y axis.
 function [pos] = getYAxis(p1)
     a = p1.Vertices(1,:);
     b = p1.Vertices(2,:);
     pos = (b - a) / 4;
 end
 
-% Return vector in the direction of the body's z axis.
+% Return a unit vector in the direction of the body's z axis.
 function [pos] = getZAxis(p1)
     a = p1.Vertices(5,:);
     b = p1.Vertices(1,:);
     pos = (b - a) / 4;
 end
 
-% Given a vector with respect to the body's basis (v1), compute the
+% Given a vector with respect to the model's basis (v1), compute the
 % vector's representation with respect to the world's basis (v2).
 function v2 = toWorld(v1, p)
     pX = getXAxis(p);
     pY = getYAxis(p);
     pZ = getZAxis(p);
+    
+    % Below, a transformation matrix 'T' is created using the basis of the
+    % model.
     T = [pX(1) pY(1) pZ(1); pX(2) pY(2) pZ(2); pX(3) pY(3) pZ(3)];
+    
+    % Multiplying this matrix by a vector will perform the linear
+    % transformation.
     v2 = T * transpose(v1);
 end
 
-% TODO: Calculate axis of nutation
 
    

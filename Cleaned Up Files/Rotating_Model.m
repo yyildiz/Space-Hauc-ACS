@@ -103,6 +103,10 @@ function Rotating_Model(omega1, omega2, omega3, L1, L2, L3)
                   state = 0;
               end
            end
+           
+           % Draw the presumed angular momentum vector.
+           % WARNING: CURRENTLY INCORRECT.  (Angular momentum vector is not
+           % constant.  Still trying to determine why.)
            patch('faces', [1,2], 'vertices', [0 0 0; rotAxisW(1) rotAxisW(2) rotAxisW(3)], 'edgecolor', [r g b]);
        end
        % End coloring transitions.
