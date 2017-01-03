@@ -26,9 +26,12 @@ function Rotating_Model(omega1, omega2, omega3, L1, L2, L3)
     view(2)
     axis([-5 5 -5 5 -5 5])
     grid on
-    patch('faces', [1,2], 'vertices', [-5 0 0; 5 0 0], 'edgecolor', 'b');
+    %patch('faces', [1,2], 'vertices', [-5 0 0; 5 0 0], 'edgecolor', 'b');
     i = 1;
-
+    r = 0;
+    g = 0;
+    b = 0;
+    state = 0;
     xAxis = patch('faces', [1,2], 'vertices', [getXAxis(p1)-[5 0 0]; getXAxis(p1)+[5 0 0]], 'edgecolor', 'r');
     while true
        finalTime = datenum(clock + [0, 0, 0, 0, 0, 0.001]); 
@@ -37,8 +40,43 @@ function Rotating_Model(omega1, omega2, omega3, L1, L2, L3)
        rotAxisW = toWorld(rotAxis, p1);
        disp(getZAxis(p1) + getXAxis(p1));
        disp(toWorld([1 0 1], p1));
-       if mod(i, 100) == 0
-           %patch('faces', [1,2], 'vertices', [0 0 0; rotAxisW(1) rotAxisW(2) rotAxisW(3)], 'edgecolor', 'b');
+       if mod(i, 1) == 0
+           if state == 0
+              r = r + 0.01;
+              if r >= 1
+                  r = 1;
+                  state = state + 1;
+              end
+           end
+           if state == 1
+              g = g + 0.01;
+              if g >= 1
+                  g = 1;
+                  state = state + 1;
+              end
+           end
+           if state == 2
+              r = r - 0.01;
+              if r <= 0
+                  r = 0;
+                  state = state + 1;
+              end
+           end
+           if state == 3
+              b = b + 0.01;
+              if b >= 1
+                  b = 0;
+                  state = state + 1;
+              end
+           end
+           if state == 4
+              g = g - 0.01;
+              if g <= 0
+                  g = 0;
+                  state = state + 1;
+              end
+           end
+           patch('faces', [1,2], 'vertices', [0 0 0; rotAxisW(1) rotAxisW(2) rotAxisW(3)], 'edgecolor', [r g b]);
        end
        
        v1 = omega1(i)*0.01 * getXAxis(p1);
@@ -61,8 +99,8 @@ function Rotating_Model(omega1, omega2, omega3, L1, L2, L3)
 end
 
 function [pos] = getXAxis(p1)
-    a = p1.Vertices(8,:);
-    b = p1.Vertices(5,:);
+    a = p1.Vertices(5,:);
+    b = p1.Vertices(8,:);
     pos = (b - a) / 8;
 end
 
