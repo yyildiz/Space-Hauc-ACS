@@ -1,4 +1,4 @@
-%  ----------------------- READ ME -----------------------
+%  ---------------------------- READ ME ----------------------------
 
 % To run this program,      NEW RULES
     % 1.  Enter the command 'RunSimulation' in the Command Window.  Done!
