@@ -1,0 +1,40 @@
+Mass properties of Simplified CubeSat Mass Model
+	Configuration: Default
+	Coordinate systems: -- default --
+
+Mass = 3925.05 grams
+
+Volume = 1804352.00 cuic millimeters
+
+Surface area = 408960.00 square millimeters
+
+Center of mass: ( millimeters )
+	X = 0.00
+	Y = 0.00
+	Z = 27.22
+
+Principal axes of inertia and principal moments of inertia: ( grams * square millimeters )
+Taken at the center of mass.
+	Ix = (0.00, 0.00, 1.00)		Px = 33114172.37
+	Iy = (0.00, -1.00, 0.00)	Py = 59295804.91
+	Iz = (1.00, 0.00, 0.00)		Pz = 59295804.91
+
+Moments of inertia: ( grams * square millimeters )
+Taken at the center of mass and aligned with the output coordinate system.
+	Lxx = 59295804.91	Lxy = 0.00		Lxz = 0.00
+	Lyx = 0.00		Lyy = 59295804.91	Lyz = 0.00
+	Lzx = 0.00		Lzy = 0.00		Lzz = 33114172.37
+
+Moments of inertia: ( grams * square millimeters )
+Taken at the output coordinate system.
+	Ixx = 62204551.24	Ixy = 0.00		Ixz = 0.00
+	Iyx = 0.00		Iyy = 62204551.24	Iyz = 0.00
+	Izx = 0.00		Izy = 0.00		Izz = 33114172.37
+
+One or more components have overridden mass properties:
+	Solar Panel<1><Default>
+	Solar Panel<2><Default>
+	Solar Panel<3><Default>
+	Solar Panel<4><Default>
+	See3Cam CU130<1><Default>
+	Ballast<1><Default>
