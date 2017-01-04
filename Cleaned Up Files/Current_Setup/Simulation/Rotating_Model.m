@@ -64,7 +64,7 @@ function Rotating_Model(omega1, omega2, omega3, L1, L2, L3)
        rotAxisW = toWorld(rotAxis, p1);
        
        % Begin coloring transitions.
-       if mod(i, 1) == 0
+       if mod(i, 1) == 1
            colorData = colorAngularMomentum(r, g, b, state);
            r = colorData(1);
            g = colorData(2);
