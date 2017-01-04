@@ -19,7 +19,8 @@ function Rotating_Model(omega1, omega2, omega3, L1, L2, L3)
     center = [0 0 0];
     
     % The model will rotate about this point in space.
-    centerOfMass = [3 0 0];
+    % WARNING: These values are correct ONLY if the dimensions are set to [30 10 10]
+    centerOfMass = [2.7 0 0];  % TODO: Confirm center of mass.
 
     % Create a generic 3D model of the cube sat.
     p1 = createPatch(center);
@@ -36,7 +37,7 @@ function Rotating_Model(omega1, omega2, omega3, L1, L2, L3)
     
     % This line represents the x axis of the body.  We will move it in the
     % same fashion as the body itself.
-    xAxis = patch('faces', [1,2], 'vertices', [getXAxis(p1)-[5 0 0]+center; getXAxis(p1)+[5 0 0]+center], 'edgecolor', 'r');
+    xAxis = patch('faces', [1,2], 'vertices', [[-15 0 0]+center; [15 0 0]+center], 'edgecolor', 'r');
     
     %patch('faces', [1,2], 'vertices', [center + centerOfMass; 700 0 150], 'edgecolor', 'b');
     

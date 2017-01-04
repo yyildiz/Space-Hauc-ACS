@@ -1,6 +1,6 @@
 %creates variables used in EulerSolverTorque_exp
 
-I = [3 3 7]; %moment of inertia about principal axes
+I = [0.06220455124 0.06220455124 0.03311417]; %moment of inertia about principal axes
 
 N = [0 0 0]; %torque about the principal axes
 
