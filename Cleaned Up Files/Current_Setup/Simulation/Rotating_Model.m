@@ -10,33 +10,15 @@
 
 
 function Rotating_Model(omega1, omega2, omega3, L1, L2, L3)
-    %shape vertices
-    a = [-4 -2 -2;
-        -4 2 -2;
-        4 2 -2;
-        4 -2 -2;
-        -4 -2 2;
-        -4 2 2;
-        4 2 2;
-        4 -2 2];
-    %shape faces (numbers in each row repersents vertices of face)
-    b = [1 2 6 5;
-        2 3 7 6;
-        3 4 8 7;
-        4 1 5 8;
-        1 2 3 4;
-        5 6 7 8];
 
-    %create cube patch
-    p1 = patch('faces',b,...
-            'vertices',a,...
-            'facecolor',[.5 .5 .5],...
-            'edgecolor',[1,1,1],...
-            'facealpha',0.5);
+    % The 'center' vector describes where the center of the model will be.
+    center = [0 0 0];
     
-    view(2)
-    axis([-5 5 -5 5 -5 5])
-    grid on
+    % The model will rotate about this point in space.
+    centerOfMass = [3 0 0];
+
+    % Create the 3D model of the
+    p1 = createPatch(center);
     
     % This index variable 'i' will be used to iterate through the list of
     % omega values at different times.
@@ -50,7 +32,7 @@ function Rotating_Model(omega1, omega2, omega3, L1, L2, L3)
     
     % This line represents the x axis of the body.  We will move it in the
     % same fashion as the body itself.
-    xAxis = patch('faces', [1,2], 'vertices', [getXAxis(p1)-[5 0 0]; getXAxis(p1)+[5 0 0]], 'edgecolor', 'r');
+    xAxis = patch('faces', [1,2], 'vertices', [getXAxis(p1)-[5 0 0]+center; getXAxis(p1)+[5 0 0]+center], 'edgecolor', 'r');
     
     % Here is the main loop for applying different angular velocities to
     % the patch object.
@@ -74,7 +56,7 @@ function Rotating_Model(omega1, omega2, omega3, L1, L2, L3)
            % Draw the presumed angular momentum vector.
            % WARNING: CURRENTLY INCORRECT.  (Angular momentum vector is not
            % constant.  Still trying to determine why.)
-           patch('faces', [1,2], 'vertices', [0 0 0; rotAxisW(1) rotAxisW(2) rotAxisW(3)], 'edgecolor', [r g b]);
+           patch('faces', [1,2], 'vertices', [center; rotAxisW(1) rotAxisW(2) rotAxisW(3)], 'edgecolor', [r g b]);
        end
        % End coloring transitions.
        
@@ -94,8 +76,8 @@ function Rotating_Model(omega1, omega2, omega3, L1, L2, L3)
        
        % Now the model and the line representing the x axis can both be
        % rotated using the calculated 'v' and 'mag' values.
-       rotate(p1,v,mag,[0 0 0]);
-       rotate(xAxis,v,mag,[0 0 0]);
+       rotate(p1,v,mag,center + centerOfMass);
+       rotate(xAxis,v,mag,center + centerOfMass);
        
        % Draw the resulting model and its axis to the screen.
        drawnow
@@ -150,49 +132,49 @@ end
 
 function [res] = colorAngularMomentum(r, g, b, state)
    if state == 0
-      r = r + 0.01;
+      r = r + 0.1;
       if r >= 1
           r = 1;
           state = state + 1;
       end
    end
    if state == 1
-      g = g + 0.01;
+      g = g + 0.1;
       if g >= 1
           g = 1;
           state = state + 1;
       end
    end
    if state == 2
-      r = r - 0.01;
+      r = r - 0.1;
       if r <= 0
           r = 0;
           state = state + 1;
       end
    end
    if state == 3
-      b = b + 0.01;
+      b = b + 0.1;
       if b >= 1
           b = 1;
           state = state + 1;
       end
    end
    if state == 4
-      g = g - 0.01;
+      g = g - 0.1;
       if g <= 0
           g = 0;
           state = state + 1;
       end
    end
    if state == 5
-      r = r + 0.01;
+      r = r + 0.1;
       if r >= 1
           r = 1;
           state = state + 1;
       end
    end
    if state == 6
-      b = b - 0.01;
+      b = b - 0.1;
       if b <= 0
           b = 0;
           state = 0;
@@ -201,5 +183,37 @@ function [res] = colorAngularMomentum(r, g, b, state)
    res = [r g b state];
 end
 
+function p1 = createPatch(center)
+    %shape vertices
+    a = [-4 -2 -2;
+        -4 2 -2;
+        4 2 -2;
+        4 -2 -2;
+        -4 -2 2;
+        -4 2 2;
+        4 2 2;
+        4 -2 2];
+    
+    a = a + center;
+    
+    %shape faces (numbers in each row repersents vertices of face)
+    b = [1 2 6 5;
+        2 3 7 6;
+        3 4 8 7;
+        4 1 5 8;
+        1 2 3 4;
+        5 6 7 8];
+
+    %create cube patch
+    p1 = patch('faces',b,...
+            'vertices',a,...
+            'facecolor',[.5 .5 .5],...
+            'edgecolor',[1,1,1],...
+            'facealpha',0.5);
+    
+    view(2)
+    axis([-5 5 -5 5 -5 5])
+    grid on
+end
 
    

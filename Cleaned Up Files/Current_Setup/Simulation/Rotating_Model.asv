@@ -19,6 +19,10 @@ function Rotating_Model(omega1, omega2, omega3, L1, L2, L3)
         -4 2 2;
         4 2 2;
         4 -2 2];
+    
+    center = [1 0 0];
+    a = a + center;
+    
     %shape faces (numbers in each row repersents vertices of face)
     b = [1 2 6 5;
         2 3 7 6;
@@ -94,8 +98,8 @@ function Rotating_Model(omega1, omega2, omega3, L1, L2, L3)
        
        % Now the model and the line representing the x axis can both be
        % rotated using the calculated 'v' and 'mag' values.
-       rotate(p1,v,mag,[0 0 0]);
-       rotate(xAxis,v,mag,[0 0 0]);
+       rotate(p1,v,mag,center);
+       rotate(xAxis,v,mag,ce);
        
        % Draw the resulting model and its axis to the screen.
        drawnow
@@ -150,49 +154,49 @@ end
 
 function [res] = colorAngularMomentum(r, g, b, state)
    if state == 0
-      r = r + 0.01;
+      r = r + 0.1;
       if r >= 1
           r = 1;
           state = state + 1;
       end
    end
    if state == 1
-      g = g + 0.01;
+      g = g + 0.1;
       if g >= 1
           g = 1;
           state = state + 1;
       end
    end
    if state == 2
-      r = r - 0.01;
+      r = r - 0.1;
       if r <= 0
           r = 0;
           state = state + 1;
       end
    end
    if state == 3
-      b = b + 0.01;
+      b = b + 0.1;
       if b >= 1
           b = 1;
           state = state + 1;
       end
    end
    if state == 4
-      g = g - 0.01;
+      g = g - 0.1;
       if g <= 0
           g = 0;
           state = state + 1;
       end
    end
    if state == 5
-      r = r + 0.01;
+      r = r + 0.1;
       if r >= 1
           r = 1;
           state = state + 1;
       end
    end
    if state == 6
-      b = b - 0.01;
+      b = b - 0.1;
       if b <= 0
           b = 0;
           state = 0;
