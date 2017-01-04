@@ -17,7 +17,7 @@ function Rotating_Model(omega1, omega2, omega3, L1, L2, L3)
     % The model will rotate about this point in space.
     centerOfMass = [3 0 0];
 
-    % Create the 3D model of the
+    % Create a generic 3D model of the cube sat.
     p1 = createPatch(center);
     
     % This index variable 'i' will be used to iterate through the list of
@@ -33,6 +33,8 @@ function Rotating_Model(omega1, omega2, omega3, L1, L2, L3)
     % This line represents the x axis of the body.  We will move it in the
     % same fashion as the body itself.
     xAxis = patch('faces', [1,2], 'vertices', [getXAxis(p1)-[5 0 0]+center; getXAxis(p1)+[5 0 0]+center], 'edgecolor', 'r');
+    
+    %patch('faces', [1,2], 'vertices', [center + centerOfMass; 700 0 150], 'edgecolor', 'b');
     
     % Here is the main loop for applying different angular velocities to
     % the patch object.
@@ -56,7 +58,7 @@ function Rotating_Model(omega1, omega2, omega3, L1, L2, L3)
            % Draw the presumed angular momentum vector.
            % WARNING: CURRENTLY INCORRECT.  (Angular momentum vector is not
            % constant.  Still trying to determine why.)
-           patch('faces', [1,2], 'vertices', [center; rotAxisW(1) rotAxisW(2) rotAxisW(3)], 'edgecolor', [r g b]);
+           patch('faces', [1,2], 'vertices', [center + centerOfMass; rotAxisW(1) rotAxisW(2) rotAxisW(3)], 'edgecolor', [r g b]);
        end
        % End coloring transitions.
        
@@ -97,21 +99,24 @@ end
 function [pos] = getXAxis(p1)
     a = p1.Vertices(5,:);
     b = p1.Vertices(8,:);
-    pos = (b - a) / 8;
+    c = b - a;
+    pos = c / sqrt(c(1)*c(1) + c(2)*c(2) + c(3)*c(3));
 end
 
 % Return a unit vector in the direction of the body's y axis.
 function [pos] = getYAxis(p1)
     a = p1.Vertices(1,:);
     b = p1.Vertices(2,:);
-    pos = (b - a) / 4;
+    c = b - a;
+    pos = c / sqrt(c(1)*c(1) + c(2)*c(2) + c(3)*c(3));
 end
 
 % Return a unit vector in the direction of the body's z axis.
 function [pos] = getZAxis(p1)
     a = p1.Vertices(5,:);
     b = p1.Vertices(1,:);
-    pos = (b - a) / 4;
+    c = b - a;
+    pos = c / sqrt(c(1)*c(1) + c(2)*c(2) + c(3)*c(3));
 end
 
 % Given a vector with respect to the model's basis (v1), compute the
@@ -184,15 +189,30 @@ function [res] = colorAngularMomentum(r, g, b, state)
 end
 
 function p1 = createPatch(center)
+
+    dim = [30 10 10];
+
+    lenX = dim(1) / 2;
+    lenY = dim(2) / 2;
+    lenZ = dim(3) / 2;
+    
     %shape vertices
-    a = [-4 -2 -2;
-        -4 2 -2;
-        4 2 -2;
-        4 -2 -2;
-        -4 -2 2;
-        -4 2 2;
-        4 2 2;
-        4 -2 2];
+    a = [-lenX -lenY -lenZ;
+        -lenX lenY -lenZ;
+        lenX lenY -lenZ;
+        lenX -lenY -lenZ;
+        -lenX -lenY lenZ;
+        -lenX lenY lenZ;
+        lenX lenY lenZ;
+        lenX -lenY lenZ;
+        lenX lenY lenZ+dim(1);
+        lenX -lenY lenZ+dim(1);
+        lenX -lenY-dim(1) lenZ;
+        lenX -lenY-dim(1) -lenZ;
+        lenX lenY -lenZ-dim(1);
+        lenX -lenY -lenZ-dim(1);
+        lenX lenY+dim(1) lenZ;
+        lenX lenY+dim(1) -lenZ];
     
     a = a + center;
     
@@ -202,7 +222,11 @@ function p1 = createPatch(center)
         3 4 8 7;
         4 1 5 8;
         1 2 3 4;
-        5 6 7 8];
+        5 6 7 8;
+        7 8 10 9;
+        4 8 11 12;
+        3 4 14 13;
+        3 7 15 16];
 
     %create cube patch
     p1 = patch('faces',b,...
@@ -212,7 +236,8 @@ function p1 = createPatch(center)
             'facealpha',0.5);
     
     view(2)
-    axis([-5 5 -5 5 -5 5])
+    maxVal = max(dim) + 10;
+    axis([-maxVal maxVal -maxVal maxVal -maxVal maxVal])
     grid on
 end
 
