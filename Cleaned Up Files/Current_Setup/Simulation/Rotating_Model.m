@@ -1,7 +1,12 @@
-%  --- READ ME ---
+%  ----------------------- READ ME -----------------------
 % To use this program, 
     % 1.  Navigate to the 'Master_Files' folder
-    % 2.  Run the script named 'EulerSolverVariables
+    % 2.  Run the script named 'EulerSolverVariables_Master_20161229.m'
+    % 3.  Open the Simulink file named 'EulerSolver_Master_20170103.slx'
+    % 4.  Run that Simulink file to generate the omega values
+    % 5.  Navigate back to this script
+    % 6.  Now, in the Command Window, enter the command:
+    %     'Rotating_Model(w3.Data, w2.Data, w1.Data, L3.Data, L2.Data, L1.Data)'
 
 
 function Rotating_Model(omega1, omega2, omega3, L1, L2, L3)
