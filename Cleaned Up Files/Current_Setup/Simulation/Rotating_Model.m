@@ -1,5 +1,9 @@
 %  ----------------------- READ ME -----------------------
-% To use this program, 
+
+% To run this program,      NEW RULES
+    % 1.  Enter the command 'RunSimulation' in the Command Window.  Done!
+
+% To use this program,      OLD RULES
     % 1.  Navigate to the 'Master_Files' folder
     % 2.  Run the script named 'EulerSolverVariables_Master_20161229.m'
     % 3.  Open the Simulink file named 'EulerSolver_Master_20170103.slx'
