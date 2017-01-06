@@ -45,7 +45,7 @@ function Rotating_Model(omega1, omega2, omega3, L1, L2, L3)
        finalTime = datenum(clock + [0, 0, 0, 0, 0, 0.001]); 
        
        % Draw the angular momentum vector.
-       colorData = drawAngularMomentum(L1, L2, L3, i, r, g, b, state, p1, center, centerOfMass);
+       colorData = drawAngularMomentum(L1(i), L2(i), L3(i), r, g, b, state, p1, center, centerOfMass);
        % Adjust colors
        r = colorData(1);
        g = colorData(2);
@@ -89,22 +89,21 @@ function applyRotations(omega1, omega2, omega3, p1, xAxis, center, centerOfMass)
     rotate(xAxis,v,mag,center + centerOfMass);
 end
 
-function colorData = drawAngularMomentum(L1, L2, L3, i, r, g, b, state, p1, center, centerOfMass)
+function colorData = drawAngularMomentum(L1, L2, L3, r, g, b, state, p1, center, centerOfMass)
     % rotAxis is the angular momentum with respect to the body's basis.
-    rotAxis = [L1(i) L2(i) L3(i)];
+    rotAxis = [L1 L2 L3];
 
     % rotAxisW is the angular momentum with respect to the world's basis.
     rotAxisW = toWorld(rotAxis, p1) * 500;
 
     % Begin coloring transitions.
-    if mod(i, 1) == 0
-       colorData = colorAngularMomentum(r, g, b, state);
+    colorData = colorAngularMomentum(r, g, b, state);
 
-       % Draw the presumed angular momentum vector.
-       % WARNING: CURRENTLY INCORRECT.  (Angular momentum vector is not
-       % constant.  Still trying to determine why.)
-       patch('faces', [1,2], 'vertices', [center + centerOfMass; rotAxisW(1) rotAxisW(2) rotAxisW(3)], 'edgecolor', [r g b]);
-    end
+    % Draw the presumed angular momentum vector.
+    % WARNING: CURRENTLY INCORRECT.  (Angular momentum vector is not
+    % constant.  Still trying to determine why.)
+    patch('faces', [1,2], 'vertices', [center + centerOfMass; rotAxisW(1) rotAxisW(2) rotAxisW(3)], 'edgecolor', [r g b]);
+    
     % End coloring transitions.
 end
 

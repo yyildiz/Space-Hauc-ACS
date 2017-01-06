@@ -4,6 +4,6 @@ I = [0.06220455124 0.06220455124 0.03311417]; %moment of inertia about principal
 
 N = [0 0 0]; %torque about the principal axes
 
-w = [50 50 8]; %initial angular velocity about principal axes
+w = [20 0 100]; %initial angular velocity about principal axes
 
 Ish = [0.06220455124 0.06220455124 0.03311417]; %satellite moment of inertia (kg*m^2)
