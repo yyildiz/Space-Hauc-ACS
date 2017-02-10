@@ -42,7 +42,7 @@ function Rotating_Model(omega1, omega2, omega3, L1, L2, L3)
     % Here is the main loop for applying different angular velocities to
     % the patch object.
     while true
-       finalTime = datenum(clock + [0, 0, 0, 0, 0, 0.001]); 
+       finalTime = datenum(clock + [0, 0, 0, 0, 0, 0.01]); 
        
        % Draw the angular momentum vector.
        colorData = drawAngularMomentum(L1(i), L2(i), L3(i), r, g, b, state, p1, center, centerOfMass);
@@ -60,7 +60,7 @@ function Rotating_Model(omega1, omega2, omega3, L1, L2, L3)
        
        % This is a wait loop that will ensure equal time between loop iterations.
        while datenum(clock) < finalTime
-            
+%             disp('Connor is awesome.');
        end
        
        % Incrementing our index variable to grab the next instance of the
@@ -102,7 +102,8 @@ function colorData = drawAngularMomentum(L1, L2, L3, r, g, b, state, p1, center,
     % Draw the presumed angular momentum vector.
     % WARNING: CURRENTLY INCORRECT.  (Angular momentum vector is not
     % constant.  Still trying to determine why.)
-    patch('faces', [1,2], 'vertices', [center + centerOfMass; rotAxisW(1) rotAxisW(2) rotAxisW(3)], 'edgecolor', [r g b]);
+    disp(rotAxisW);
+%     patch('faces', [1,2], 'vertices', [center + centerOfMass; rotAxisW(1) rotAxisW(2) rotAxisW(3)], 'edgecolor', [r g b]);
     
     % End coloring transitions.
 end
@@ -148,50 +149,51 @@ function v2 = toWorld(v1, p)
 end
 
 function [res] = colorAngularMomentum(r, g, b, state)
+   change = 0.01;
    if state == 0
-      r = r + 0.1;
+      r = r + change;
       if r >= 1
           r = 1;
           state = state + 1;
       end
    end
    if state == 1
-      g = g + 0.1;
+      g = g + change;
       if g >= 1
           g = 1;
           state = state + 1;
       end
    end
    if state == 2
-      r = r - 0.1;
+      r = r - change;
       if r <= 0
           r = 0;
           state = state + 1;
       end
    end
    if state == 3
-      b = b + 0.1;
+      b = b + change;
       if b >= 1
           b = 1;
           state = state + 1;
       end
    end
    if state == 4
-      g = g - 0.1;
+      g = g - change;
       if g <= 0
           g = 0;
           state = state + 1;
       end
    end
    if state == 5
-      r = r + 0.1;
+      r = r + change;
       if r >= 1
           r = 1;
           state = state + 1;
       end
    end
    if state == 6
-      b = b - 0.1;
+      b = b - change;
       if b <= 0
           b = 0;
           state = 0;
