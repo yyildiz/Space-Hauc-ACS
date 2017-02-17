@@ -1,7 +1,7 @@
 
 function mag = getMagneticField(theta, time)
     theta = theta / 360.0 * 2 * pi;
-    totalTime = 90;   
+    totalTime = 90;
     u = [1 0 0];
     n = [0 sin(theta) cos(theta)]; 
     P = getPoint(1.0 * time / totalTime, n, u);
