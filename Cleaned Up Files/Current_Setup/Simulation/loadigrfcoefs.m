@@ -1,5 +1,4 @@
 function [g, h] = loadigrfcoefs(time)
-
 % LOADIGRFCOEFS Load coefficients used in IGRF model.
 % 
 % Usage: [G, H] = LOADIGRFCOEFS(TIME) or GH = LOADIGRFCOEFS(TIME)

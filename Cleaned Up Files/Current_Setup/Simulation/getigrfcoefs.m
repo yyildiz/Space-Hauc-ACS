@@ -45,6 +45,7 @@ function out = getigrfcoefs(datadirectory)
 % See also: IGRF, LOADIGRFCOEFS.
 
 % Get the directory with the datfiles.
+
 if nargin < 1 || isempty(datadirectory)
     fpath = fileparts(mfilename('fullpath'));
     if exist(fullfile(fpath, 'datfiles'), 'dir')

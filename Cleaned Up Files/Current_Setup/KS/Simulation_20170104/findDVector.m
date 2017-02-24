@@ -11,7 +11,7 @@ function D = findDVector(B,L)
     Lpunit = Lp/norm(Lp);
     
     %find unit vector in D direction
-    Dunit = cross(Lpunit, B);
+    Dunit = cross(Lpunit, Bunit);
     
     %find the magnitude of the D vector
     Dnorm = norm(Lp)/norm(B);
